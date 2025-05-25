@@ -11,27 +11,9 @@ export class UsersService {
     return await this.usersRepository.save(user);
   }
 
-  async find({
-    email,
-    countryCode,
-    phoneNumber,
-  }: {
-    email?: string;
-    countryCode?: string;
-    phoneNumber?: string;
-  }): Promise<UserEntity | null> {
-    if (!email && (!countryCode || !phoneNumber)) {
-      throw new Error(
-        'Either email or countryCode + phoneNumber must be provided',
-      );
-    }
-
-    const where: any = [];
-    if (email) where.push({ email });
-    if (countryCode && phoneNumber) where.push({ countryCode, phoneNumber });
-
+  async findByPhone(countryCode: string, phoneNumber: string) {
     return await this.usersRepository.findByCondition({
-      where,
+      where: { countryCode, phoneNumber },
     });
   }
 }
