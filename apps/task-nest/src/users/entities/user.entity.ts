@@ -1,5 +1,13 @@
-import { Entity, Column, Index } from 'typeorm';
+import {
+  Entity,
+  Column,
+  Index,
+  OneToMany,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
 import { AbstractEntity } from '@app/common';
+import { ProfileEntity } from '../../profiles/entities/profile.entity';
 
 export enum ROLES {
   CUSTOMER = 'CUSTOMER',
@@ -22,4 +30,14 @@ export class UserEntity extends AbstractEntity {
 
   @Column({ type: 'varchar', length: 255, nullable: true })
   email?: string;
+
+  @OneToMany(() => ProfileEntity, (profile) => profile.user)
+  profiles: ProfileEntity[];
+
+  @Column({ nullable: true })
+  defaultProfileId: string;
+
+  @ManyToOne(() => ProfileEntity, { nullable: true })
+  @JoinColumn({ name: 'defaultProfileId' })
+  defaultProfile: ProfileEntity;
 }
