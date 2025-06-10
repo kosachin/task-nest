@@ -8,13 +8,7 @@ import {
 } from 'typeorm';
 import { AbstractEntity } from '@app/common';
 import { ProfileEntity } from '../../profiles/entities/profile.entity';
-
-export enum ROLES {
-  CUSTOMER = 'CUSTOMER',
-  PARTNER = 'PARTNER',
-  ADMIN = 'ADMIN',
-  SUPER_ADMIN = 'SUPER_ADMIN',
-}
+import { ROLES } from '@app/common/constants';
 
 @Index(['countryCode', 'phoneNumber'], { unique: true })
 @Entity('users')

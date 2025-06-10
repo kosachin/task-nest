@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { AbstractEntity } from '@app/common';
-import { MainCategoryEntity } from './ main-category.entity';
+import { MainCategoryEntity } from './main-category.entity';
 import { DeviceEntity } from './device.entity';
 
 @Entity('sub_categories')

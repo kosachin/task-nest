@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { AbstractRepository } from '@app/common';
-import { MainCategoryEntity } from '../entities/ main-category.entity';
+import { MainCategoryEntity } from '../entities/main-category.entity';
 
 @Injectable()
 export class MainCategoryRepository extends AbstractRepository<MainCategoryEntity> {

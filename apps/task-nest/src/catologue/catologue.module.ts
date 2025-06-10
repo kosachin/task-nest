@@ -8,7 +8,7 @@ import {
   ServiceTypeRepository,
   SubCategoryRepository,
 } from './repositories';
-import { MainCategoryEntity } from './entities/ main-category.entity';
+import { MainCategoryEntity } from './entities/main-category.entity';
 import { SubCategoryEntity } from './entities/sub-category.entity';
 import { DeviceEntity } from './entities/device.entity';
 import { ServiceTypeEntity } from './entities/service-type.entity';
