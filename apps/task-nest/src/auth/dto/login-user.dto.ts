@@ -1,5 +1,5 @@
 import { IsString, Matches, IsNotEmpty, IsEnum } from 'class-validator';
-import { ROLES } from '../../users/entities/user.entity';
+import { ROLES } from '@app/common/constants';
 
 export class LoginUserDto {
   @IsString()

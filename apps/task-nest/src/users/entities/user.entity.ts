@@ -8,13 +8,7 @@ import {
 } from 'typeorm';
 import { AbstractEntity } from '@app/common';
 import { ProfileEntity } from '../../profiles/entities/profile.entity';
-
-export enum ROLES {
-  CUSTOMER = 'CUSTOMER',
-  PARTNER = 'PARTNER',
-  ADMIN = 'ADMIN',
-  SUPER_ADMIN = 'SUPER_ADMIN',
-}
+import { ROLES } from '@app/common/constants';
 
 @Index(['countryCode', 'phoneNumber'], { unique: true })
 @Entity('users')
@@ -25,7 +19,7 @@ export class UserEntity extends AbstractEntity {
   @Column({ type: 'varchar', length: 15 })
   phoneNumber: string;
 
-  @Column({ enum: ROLES })
+  @Column({ type: 'enum', enum: ROLES })
   role: ROLES;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
