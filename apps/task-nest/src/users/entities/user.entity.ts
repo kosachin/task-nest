@@ -19,7 +19,7 @@ export class UserEntity extends AbstractEntity {
   @Column({ type: 'varchar', length: 15 })
   phoneNumber: string;
 
-  @Column({ type: 'enum', enum: ROLES })
+  @Column({ type: 'enum', enum: ROLES, default: ROLES.CUSTOMER })
   role: ROLES;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
