@@ -14,10 +14,12 @@ import { DeviceEntity } from './entities/device.entity';
 import { ServiceTypeEntity } from './entities/service-type.entity';
 import { ServiceItemEntity } from './entities/service-item.entity';
 import { CatologueController } from './catologue.controller';
+import { CatalogueEntity } from './entities/catologue.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([
+      CatalogueEntity,
       MainCategoryEntity,
       SubCategoryEntity,
       DeviceEntity,

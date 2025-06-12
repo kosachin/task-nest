@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { AbstractEntity } from '@app/common';
 import { SubCategoryEntity } from './sub-category.entity';
-import { CatalogueEntity } from './catolgoue.entity';
+import { CatalogueEntity } from './catologue.entity';
 
 @Entity('main_categories')
 export class MainCategoryEntity extends AbstractEntity {

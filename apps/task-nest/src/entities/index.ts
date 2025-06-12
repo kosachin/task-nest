@@ -6,6 +6,7 @@ import { ServiceItemEntity } from '../catologue/entities/service-item.entity';
 import { ServiceTypeEntity } from '../catologue/entities/service-type.entity';
 import { MainCategoryEntity } from '../catologue/entities/main-category.entity';
 import { SubCategoryEntity } from '../catologue/entities/sub-category.entity';
+import { CatalogueEntity } from '../catologue/entities/catologue.entity';
 
 export default [
   UserEntity,
@@ -16,4 +17,5 @@ export default [
   ServiceTypeEntity,
   MainCategoryEntity,
   SubCategoryEntity,
+  CatalogueEntity,
 ];
