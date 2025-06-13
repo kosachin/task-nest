@@ -2,7 +2,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import {
-  DeviceRepository,
   MainCategoryRepository,
   ServiceItemRepository,
   ServiceTypeRepository,
@@ -10,7 +9,6 @@ import {
 } from './repositories';
 import { MainCategoryEntity } from './entities/main-category.entity';
 import { SubCategoryEntity } from './entities/sub-category.entity';
-import { DeviceEntity } from './entities/device.entity';
 import { ServiceTypeEntity } from './entities/service-type.entity';
 import { ServiceItemEntity } from './entities/service-item.entity';
 import { CatologueController } from './catologue.controller';
@@ -22,7 +20,6 @@ import { CatalogueEntity } from './entities/catologue.entity';
       CatalogueEntity,
       MainCategoryEntity,
       SubCategoryEntity,
-      DeviceEntity,
       ServiceTypeEntity,
       ServiceItemEntity,
     ]),
@@ -30,7 +27,6 @@ import { CatalogueEntity } from './entities/catologue.entity';
   providers: [
     MainCategoryRepository,
     SubCategoryRepository,
-    DeviceRepository,
     ServiceTypeRepository,
     ServiceItemRepository,
   ],
