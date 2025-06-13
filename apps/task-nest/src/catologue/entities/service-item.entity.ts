@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne } from 'typeorm';
 import { AbstractEntity } from '@app/common';
 import { ServiceTypeEntity } from './service-type.entity';
-import { DeviceEntity } from './device.entity';
+import { SubCategoryEntity } from './sub-category.entity';
 
 @Entity('service_items')
 export class ServiceItemEntity extends AbstractEntity {
@@ -15,10 +15,14 @@ export class ServiceItemEntity extends AbstractEntity {
 
   @Column({ default: true }) isActive: boolean;
 
-  @ManyToOne(() => DeviceEntity, (device) => device.serviceItems, {
-    onDelete: 'CASCADE',
-  })
-  device: DeviceEntity;
+  @ManyToOne(
+    () => SubCategoryEntity,
+    (subCategoryEntity) => subCategoryEntity.serviceItems,
+    {
+      onDelete: 'CASCADE',
+    },
+  )
+  subCategory: SubCategoryEntity;
 
   @ManyToOne(() => ServiceTypeEntity, (type) => type.serviceItems, {
     onDelete: 'CASCADE',

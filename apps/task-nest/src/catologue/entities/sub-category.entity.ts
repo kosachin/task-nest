@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { AbstractEntity } from '@app/common';
 import { MainCategoryEntity } from './main-category.entity';
-import { DeviceEntity } from './device.entity';
+import { ServiceItemEntity } from './service-item.entity';
 
 @Entity('sub_categories')
 export class SubCategoryEntity extends AbstractEntity {
@@ -12,6 +12,6 @@ export class SubCategoryEntity extends AbstractEntity {
   })
   mainCategory: MainCategoryEntity;
 
-  @OneToMany(() => DeviceEntity, (device) => device.subCategory)
-  devices: DeviceEntity[];
+  @OneToMany(() => ServiceItemEntity, (serviceItem) => serviceItem.subCategory)
+  serviceItems: ServiceItemEntity[];
 }
