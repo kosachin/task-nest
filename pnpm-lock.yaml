@@ -32,6 +32,9 @@ dependencies:
   class-validator:
     specifier: ^0.14.2
     version: 0.14.2
+  dotenv:
+    specifier: ^16.5.0
+    version: 16.5.0
   joi:
     specifier: ^17.13.3
     version: 17.13.3
@@ -56,7 +59,7 @@ devDependencies:
     specifier: ^9.18.0
     version: 9.27.0
   '@nestjs/cli':
-    specifier: ^11.0.0
+    specifier: ^11.0.7
     version: 11.0.7(@swc/cli@0.6.0)(@swc/core@1.11.29)(@types/node@22.15.21)
   '@nestjs/schematics':
     specifier: ^11.0.0
@@ -70,6 +73,9 @@ devDependencies:
   '@swc/core':
     specifier: ^1.10.7
     version: 1.11.29
+  '@types/dotenv':
+    specifier: ^8.2.3
+    version: 8.2.3
   '@types/express':
     specifier: ^5.0.0
     version: 5.0.2
@@ -1847,6 +1853,13 @@ packages:
     resolution: {integrity: sha512-he+DHOWReW0nghN24E1WUqM0efK4kI9oTqDm6XmK8ZPe2djZ90BSNdGnIyCLzCPw7/pogPlGbzI2wHGGmi4O/Q==}
     dev: true
 
+  /@types/dotenv@8.2.3:
+    resolution: {integrity: sha512-g2FXjlDX/cYuc5CiQvyU/6kkbP1JtmGzh0obW50zD7OKeILVL0NSpPWLXVfqoAGQjom2/SLLx9zHq0KXvD6mbw==}
+    deprecated: This is a stub types definition. dotenv provides its own type definitions, so you do not need this installed.
+    dependencies:
+      dotenv: 16.5.0
+    dev: true
+
   /@types/eslint-scope@3.7.7:
     resolution: {integrity: sha512-MzMFlSLBqNF2gcHWO0G1vP/YQyfvrxZ0bF+u7mzUdZ1/xK4A4sru+nraZz5i3iEIk1l1uyicaDVTB4QbbEkAYg==}
     dependencies:
@@ -3106,13 +3119,17 @@ packages:
     resolution: {integrity: sha512-LaKRbou8gt0RNID/9RoI+J2rvXsBRPMV7p+ElHlPhcSARbCPDYcYG2s1TIzAfWv4YSgyY5taidWzzs31lNV3yQ==}
     engines: {node: '>=12'}
     dependencies:
-      dotenv: 16.4.7
+      dotenv: 16.5.0
     dev: false
 
   /dotenv@16.4.7:
     resolution: {integrity: sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ==}
     engines: {node: '>=12'}
     dev: false
+
+  /dotenv@16.5.0:
+    resolution: {integrity: sha512-m/C+AwOAr9/W1UOIZUo232ejMNnJAJtYQjUbHoNTBNTJSvqzzDh7vnrei3o3r3m9blf6ZoDkvcw0VmozNRFJxg==}
+    engines: {node: '>=12'}
 
   /dunder-proto@1.0.1:
     resolution: {integrity: sha512-KIN/nDJBQRcXw0MLVhZE9iQHmG68qAVIBg9CqmUYjmQIhgij9U5MFvrqkUL5FbtyyzZuOeOt0zdeRe4UY7ct+A==}
@@ -6265,7 +6282,7 @@ packages:
       dayjs: 1.11.13
       debug: 4.4.1
       dedent: 1.6.0
-      dotenv: 16.4.7
+      dotenv: 16.5.0
       glob: 10.4.5
       pg: 8.16.0
       reflect-metadata: 0.2.2

@@ -2,6 +2,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import {
+  CatologueRepository,
   MainCategoryRepository,
   ServiceItemRepository,
   ServiceTypeRepository,
@@ -13,6 +14,7 @@ import { ServiceTypeEntity } from './entities/service-type.entity';
 import { ServiceItemEntity } from './entities/service-item.entity';
 import { CatologueController } from './catologue.controller';
 import { CatalogueEntity } from './entities/catologue.entity';
+import { CatologueService } from './catologue.service';
 
 @Module({
   imports: [
@@ -25,10 +27,12 @@ import { CatalogueEntity } from './entities/catologue.entity';
     ]),
   ],
   providers: [
+    CatologueRepository,
     MainCategoryRepository,
     SubCategoryRepository,
     ServiceTypeRepository,
     ServiceItemRepository,
+    CatologueService,
   ],
   controllers: [CatologueController],
 })
