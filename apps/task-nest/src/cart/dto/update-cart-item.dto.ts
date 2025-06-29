@@ -1,0 +1,21 @@
+import { IsUUID, IsInt, IsOptional, IsString, IsDateString, Min, Max } from 'class-validator';
+import { Type } from 'class-transformer';
+
+export class UpdateCartItemDto {
+  @IsInt()
+  @Min(1)
+  @Max(10)
+  @Type(() => Number)
+  quantity: number;
+
+  @IsOptional()
+  @IsString()
+  specialInstructions?: string;
+
+  @IsOptional()
+  @IsDateString()
+  scheduledDate?: string;
+
+  @IsOptional()
+  isScheduled?: boolean;
+} 
