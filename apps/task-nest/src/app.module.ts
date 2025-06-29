@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ProfilesModule } from './profiles/profiles.module';
 import { CatologueModule } from './catologue/catologue.module';
+import { CartModule } from './cart/cart.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { CatologueModule } from './catologue/catologue.module';
     UsersModule,
     ProfilesModule,
     CatologueModule,
+    CartModule
   ],
   controllers: [AppController],
   providers: [AppService],
