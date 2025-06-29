@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { AbstractEntity } from '@app/common';
 import { ProfileEntity } from '../../profiles/entities/profile.entity';
+import { CartEntity } from '../../cart/entities/cart.entity';
 import { ROLES } from '@app/common/constants';
 
 @Index(['countryCode', 'phoneNumber'], { unique: true })
@@ -27,6 +28,9 @@ export class UserEntity extends AbstractEntity {
 
   @OneToMany(() => ProfileEntity, (profile) => profile.user)
   profiles: ProfileEntity[];
+
+  @OneToMany(() => CartEntity, (cart) => cart.user)
+  carts: CartEntity[];
 
   @Column({ nullable: true })
   defaultProfileId: string;
