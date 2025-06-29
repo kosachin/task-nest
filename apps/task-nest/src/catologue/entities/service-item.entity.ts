@@ -1,7 +1,8 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { AbstractEntity } from '@app/common';
 import { ServiceTypeEntity } from './service-type.entity';
 import { SubCategoryEntity } from './sub-category.entity';
+import { CartEntity } from '../../cart/entities/cart.entity';
 
 @Entity('service_items')
 export class ServiceItemEntity extends AbstractEntity {
@@ -28,4 +29,7 @@ export class ServiceItemEntity extends AbstractEntity {
     onDelete: 'CASCADE',
   })
   serviceType: ServiceTypeEntity;
+
+  @OneToMany(() => CartEntity, (cart) => cart.serviceItem)
+  carts: CartEntity[];
 }
