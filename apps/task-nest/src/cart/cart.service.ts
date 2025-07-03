@@ -26,6 +26,9 @@ export class CartService {
 
   async addToCart(userId: string, addToCartDto: AddToCartDto): Promise<AddToCartResponseDto> {
     try {
+      // Ensure userId is not taken from DTO for security
+      // ... existing logic, but ignore any userId in DTO
+
       // Validate service item exists and is active
       const serviceItem = await this.serviceItemRepository.findByCondition({
         where: { id: addToCartDto.serviceItemId, isActive: true },
@@ -36,10 +39,11 @@ export class CartService {
       }
 
       // Check if item already exists in cart
-      const existingCartItem = await this.cartRepository.findCartItemByUserAndService(
-        userId,
-        addToCartDto.serviceItemId,
-      );
+      const existingCartItem =
+        await this.cartRepository.findCartItemByUserAndService(
+          userId,
+          addToCartDto.serviceItemId,
+        );
 
       let cartItem: CartEntity;
 
@@ -47,7 +51,9 @@ export class CartService {
         // Update existing cart item
         const newQuantity = existingCartItem.quantity + addToCartDto.quantity;
         if (newQuantity > 10) {
-          throw new BadRequestException('Maximum quantity limit exceeded (10 items)');
+          throw new BadRequestException(
+            'Maximum quantity limit exceeded (10 items)',
+          );
         }
 
         cartItem = await this.updateCartItemEntity(
@@ -72,21 +78,35 @@ export class CartService {
           unitPrice,
           totalPrice,
           specialInstructions: addToCartDto.specialInstructions,
-          scheduledDate: addToCartDto.scheduledDate ? new Date(addToCartDto.scheduledDate) : undefined,
+          scheduledDate: addToCartDto.scheduledDate
+            ? new Date(addToCartDto.scheduledDate)
+            : undefined,
           isScheduled: addToCartDto.isScheduled || false,
         });
+        // Fetch the saved cart item with relations
+        const foundCartItem = await this.cartRepository.findByCondition({
+          where: { id: cartItem.id },
+          relations: { serviceItem: true },
+        });
+        if (!foundCartItem) {
+          throw new NotFoundException('Cart item not found after creation');
+        }
+        cartItem = foundCartItem;
       }
 
       // Get updated cart summary
       const cartSummary = await this.getCartSummary(userId);
-
+      console.log({ cartSummary, cartItem });
       return {
         message: 'Item added to cart successfully',
         cartItem: this.mapToCartItemResponse(cartItem),
         cartSummary,
       };
     } catch (error) {
-      this.logger.error(`Error adding item to cart: ${error.message}`, error.stack);
+      this.logger.error(
+        `Error adding item to cart: ${error.message}`,
+        error.stack,
+      );
       throw error;
     }
   }
@@ -97,7 +117,7 @@ export class CartService {
       const summary = await this.cartRepository.getCartSummary(userId);
 
       return {
-        items: cartItems.map(item => this.mapToCartItemResponse(item)),
+        items: cartItems.map((item) => this.mapToCartItemResponse(item)),
         ...summary,
         totalAmount: summary.subtotal, // For now, no additional charges
       };
@@ -112,7 +132,11 @@ export class CartService {
     userId: string,
     updateDto: UpdateCartItemDto,
   ): Promise<CartItemResponseDto> {
-    const cartItem = await this.updateCartItemEntity(cartItemId, userId, updateDto);
+    const cartItem = await this.updateCartItemEntity(
+      cartItemId,
+      userId,
+      updateDto,
+    );
     return this.mapToCartItemResponse(cartItem);
   }
 
@@ -139,7 +163,9 @@ export class CartService {
         quantity: updateDto.quantity,
         totalPrice,
         specialInstructions: updateDto.specialInstructions,
-        scheduledDate: updateDto.scheduledDate ? new Date(updateDto.scheduledDate) : undefined,
+        scheduledDate: updateDto.scheduledDate
+          ? new Date(updateDto.scheduledDate)
+          : undefined,
         isScheduled: updateDto.isScheduled,
       });
 
@@ -155,14 +181,23 @@ export class CartService {
 
       return updatedCartItem;
     } catch (error) {
-      this.logger.error(`Error updating cart item: ${error.message}`, error.stack);
+      this.logger.error(
+        `Error updating cart item: ${error.message}`,
+        error.stack,
+      );
       throw error;
     }
   }
 
-  async removeFromCart(cartItemId: string, userId: string): Promise<{ message: string }> {
+  async removeFromCart(
+    cartItemId: string,
+    userId: string,
+  ): Promise<{ message: string }> {
     try {
-      const removed = await this.cartRepository.removeCartItem(cartItemId, userId);
+      const removed = await this.cartRepository.removeCartItem(
+        cartItemId,
+        userId,
+      );
 
       if (!removed) {
         throw new NotFoundException('Cart item not found');
@@ -170,7 +205,10 @@ export class CartService {
 
       return { message: 'Item removed from cart successfully' };
     } catch (error) {
-      this.logger.error(`Error removing cart item: ${error.message}`, error.stack);
+      this.logger.error(
+        `Error removing cart item: ${error.message}`,
+        error.stack,
+      );
       throw error;
     }
   }
@@ -190,7 +228,7 @@ export class CartService {
     const summary = await this.cartRepository.getCartSummary(userId);
 
     return {
-      items: cartItems.map(item => this.mapToCartItemResponse(item)),
+      items: cartItems.map((item) => this.mapToCartItemResponse(item)),
       ...summary,
       totalAmount: summary.subtotal,
     };
@@ -216,4 +254,4 @@ export class CartService {
       updatedAt: cartItem.updatedAt || cartItem.createdAt,
     };
   }
-} 
+}

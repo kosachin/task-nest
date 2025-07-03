@@ -51,19 +51,19 @@ export class CartRepository extends AbstractRepository<CartEntity> {
     const result = await this.cartRepository
       .createQueryBuilder('cart')
       .select([
-        'COUNT(*) as totalItems',
+        'COUNT(*) as totalitems',
         'SUM(cart.totalPrice) as subtotal',
-        'SUM(CASE WHEN cart.isScheduled = true THEN 1 ELSE 0 END) as scheduledItems',
-        'SUM(CASE WHEN cart.isScheduled = false THEN 1 ELSE 0 END) as immediateItems',
+        'SUM(CASE WHEN cart.isScheduled = true THEN 1 ELSE 0 END) as scheduleditems',
+        'SUM(CASE WHEN cart.isScheduled = false THEN 1 ELSE 0 END) as immediateitems',
       ])
       .where('cart.userId = :userId', { userId })
       .getRawOne();
 
     return {
-      totalItems: parseInt(result.totalItems) || 0,
+      totalItems: parseInt(result.totalitems) || 0,
       subtotal: parseFloat(result.subtotal) || 0,
-      scheduledItems: parseInt(result.scheduledItems) || 0,
-      immediateItems: parseInt(result.immediateItems) || 0,
+      scheduledItems: parseInt(result.scheduleditems) || 0,
+      immediateItems: parseInt(result.immediateitems) || 0,
     };
   }
 

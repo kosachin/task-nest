@@ -1,4 +1,12 @@
-import { IsUUID, IsInt, IsOptional, IsString, IsDateString, Min, Max } from 'class-validator';
+import {
+  IsUUID,
+  IsInt,
+  IsOptional,
+  IsString,
+  IsDateString,
+  Min,
+  Max,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class AddToCartDto {
@@ -21,4 +29,4 @@ export class AddToCartDto {
 
   @IsOptional()
   isScheduled?: boolean = false;
-} 
+}

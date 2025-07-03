@@ -14,8 +14,13 @@ import {
 import { CartService } from './cart.service';
 import { AddToCartDto } from './dto/add-to-cart.dto';
 import { UpdateCartItemDto } from './dto/update-cart-item.dto';
-import { CartSummaryResponseDto, AddToCartResponseDto } from './dto/cart-response.dto';
+import {
+  CartSummaryResponseDto,
+  AddToCartResponseDto,
+} from './dto/cart-response.dto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('cart')
 export class CartController {
   constructor(private readonly cartService: CartService) { }
@@ -26,13 +31,13 @@ export class CartController {
     @Request() req: any,
     @Body() addToCartDto: AddToCartDto,
   ): Promise<AddToCartResponseDto> {
-    const userId = req.user.sub;
+    const userId = req.user.userId;
     return await this.cartService.addToCart(userId, addToCartDto);
   }
 
   @Get()
   async getCart(@Request() req: any): Promise<CartSummaryResponseDto> {
-    const userId = req.user.sub;
+    const userId = req.user.userId;
     return await this.cartService.getCart(userId);
   }
 
@@ -42,8 +47,12 @@ export class CartController {
     @Param('cartItemId') cartItemId: string,
     @Body() updateCartItemDto: UpdateCartItemDto,
   ) {
-    const userId = req.user.sub;
-    return await this.cartService.updateCartItem(cartItemId, userId, updateCartItemDto);
+    const userId = req.user.userId;
+    return await this.cartService.updateCartItem(
+      cartItemId,
+      userId,
+      updateCartItemDto,
+    );
   }
 
   @Delete(':cartItemId')
@@ -52,20 +61,20 @@ export class CartController {
     @Request() req: any,
     @Param('cartItemId') cartItemId: string,
   ) {
-    const userId = req.user.sub;
+    const userId = req.user.userId;
     return await this.cartService.removeFromCart(cartItemId, userId);
   }
 
   @Delete()
   @HttpCode(HttpStatus.OK)
   async clearCart(@Request() req: any) {
-    const userId = req.user.sub;
+    const userId = req.user.userId;
     return await this.cartService.clearCart(userId);
   }
 
   @Get('summary')
   async getCartSummary(@Request() req: any): Promise<CartSummaryResponseDto> {
-    const userId = req.user.sub;
+    const userId = req.user.userId;
     return await this.cartService.getCartSummary(userId);
   }
-} 
+}
