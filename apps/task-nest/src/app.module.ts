@@ -19,9 +19,9 @@ import { CartModule } from './cart/cart.module';
     UsersModule,
     ProfilesModule,
     CatologueModule,
-    CartModule
+    CartModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

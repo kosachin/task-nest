@@ -110,3 +110,8 @@ nest g mo database -p common
 do the DB connection
 
 
+
+
+docker compose exec task-nest pnpm run migration:run:task-nest
+
+docker compose exec task-nest pnpm run seed:task-nest:all
