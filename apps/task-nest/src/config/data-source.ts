@@ -24,4 +24,7 @@ export const AppDataSource = new DataSource({
   migrations: ['apps/task-nest/src/migrations/*.ts'],
   synchronize: false,
   logging: false,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
